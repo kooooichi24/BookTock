@@ -6,6 +6,6 @@ export class SampleController {
     const usecase = new SampleUseCase(new SampleRepository());
     usecase.execute();
 
-    return "completed!!";
+    return "completed!";
   }
 }
