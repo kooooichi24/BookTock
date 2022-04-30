@@ -1,0 +1,35 @@
+service: booktock-backend
+frameworkVersion: "3"
+
+plugins:
+  - serverless-prune-plugin
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-layers
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  stage: ${opt:stage, self:custom:defaultStage, 'local'}
+  region: ap-northeast-1
+  deploymentBucket:
+    name: booktock-deployment-bucket-${self:provider.stage}
+  environment:
+    STAGE: ${self:provider.stage}
+
+functions:
+  getTodos:
+    handler: handler.getTodos
+    events:
+      - http:
+          path: /api/v1/todo
+          method: get
+
+custom:
+  defaultStage: local
+  prune:
+    automatic: true
+    number: 3
+  serverless-layers:
+    compatibleRuntimes: ["nodejs14.x"]
