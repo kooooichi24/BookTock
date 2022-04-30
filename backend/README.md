@@ -12,9 +12,3 @@
 ### lint and format
 ```sh
 ```
-
-## Author
-
-👤 **Koichi Furukawa**
-
-* Github: [@kooooichi24](https://github.com/kooooichi24)
