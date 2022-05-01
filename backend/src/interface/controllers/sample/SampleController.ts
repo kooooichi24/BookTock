@@ -1,11 +1,22 @@
+import {
+  ControllerRequest,
+  ControllerResponse,
+} from "src/infrastructure/LambdaApiGatewayAdapter";
 import { SampleRepository } from "src/interface/repository/sample/SampleRepository";
 import { SampleUseCase } from "../../../application/usecases/sample/SampleUseCase";
 
 export class SampleController {
-  save(): string {
+  async save(request: ControllerRequest): Promise<ControllerResponse> {
+    const name = request.body.name;
     const usecase = new SampleUseCase(new SampleRepository());
-    usecase.execute();
+    await usecase.execute(name);
 
-    return "completed!";
+    return {
+      statusCode: 201,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: "Created",
+    };
   }
 }

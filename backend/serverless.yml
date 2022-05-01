@@ -19,12 +19,12 @@ provider:
     STAGE: ${self:provider.stage}
 
 functions:
-  getTodos:
-    handler: handler.getTodos
+  saveSamples:
+    handler: handler.saveSamples
     events:
       - http:
-          path: /api/v1/todo
-          method: get
+          path: /api/v1/sample
+          method: post
 
 custom:
   defaultStage: local
