@@ -1,3 +1,3 @@
 export class Sample {
-  constructor(readonly message: string) {}
+  constructor(readonly name: string) {}
 }
