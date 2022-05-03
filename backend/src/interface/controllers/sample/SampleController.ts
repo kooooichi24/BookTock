@@ -1,9 +1,9 @@
 import {
   ControllerRequest,
   ControllerResponse,
-} from "src/infrastructure/LambdaApiGatewayAdapter";
-import { SampleRepository } from "src/interface/repository/sample/SampleRepository";
-import { SampleUseCase } from "../../../application/usecases/sample/SampleUseCase";
+} from "../../../../src/infrastructure/LambdaApiGatewayAdapter";
+import { SampleUseCase } from "../../../../src/application/usecases/sample/SampleUseCase";
+import { SampleRepository } from "../../../infrastructure/database/typeorm/repository/SampleRepository";
 
 export class SampleController {
   async save(request: ControllerRequest): Promise<ControllerResponse> {
@@ -16,7 +16,9 @@ export class SampleController {
       headers: {
         "Content-Type": "application/json",
       },
-      body: "Created",
+      body: {
+        message: "Created",
+      },
     };
   }
 }
