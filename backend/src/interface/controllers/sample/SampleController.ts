@@ -4,11 +4,14 @@ import {
 } from "../../../../src/infrastructure/LambdaApiGatewayAdapter";
 import { SampleUseCase } from "../../../../src/application/usecases/sample/SampleUseCase";
 import { SampleRepository } from "../../../infrastructure/database/typeorm/repository/SampleRepository";
+import { AppDataSource } from "../../../infrastructure/database/typeorm/data-source";
 
 export class SampleController {
   async save(request: ControllerRequest): Promise<ControllerResponse> {
     const name = request.body.name;
-    const usecase = new SampleUseCase(new SampleRepository());
+    
+    await AppDataSource.initialize();
+    const usecase = new SampleUseCase(new SampleRepository(AppDataSource));
     await usecase.execute(name);
 
     return {
