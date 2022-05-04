@@ -19,10 +19,10 @@ export class LambdaApiGatewayAdapter {
 
   private toControllerRequest(event: APIGatewayProxyEvent): ControllerRequest {
     return {
-      pathParameters: event.pathParameters || {},
-      queryStringParameters: event.queryStringParameters || {},
+      pathParameters: event.pathParameters ?? {},
+      queryStringParameters: event.queryStringParameters ?? {},
       body: event.body ? JSON.parse(event.body) : {},
-      headers: event.headers || {},
+      headers: event.headers ?? {},
     };
   }
 
