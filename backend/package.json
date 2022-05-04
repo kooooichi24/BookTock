@@ -10,7 +10,7 @@
     "eslint": "eslint '*/**/*.{js,ts}' --quiet",
     "lint": "run-s eslint check-types",
     "lint:fix": "run-s lint format",
-    "test:unit": "jest",
+    "test:unit": "jest --runInBand",
     "build": "tsc -p tsconfig.build.json",
     "offline:start": "sls offline start",
     "deploy:local": "run-p offline:start",

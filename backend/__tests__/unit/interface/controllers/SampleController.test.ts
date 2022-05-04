@@ -3,6 +3,10 @@ import { ControllerRequest, ControllerResponse } from "../../../../src/infrastru
 import { SampleController } from "../../../../src/interface/controllers/sample/SampleController";
 
 describe("SampleController.ts", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+  
   describe("save", () => {
     it("正常系", async () => {
       // Arrange
