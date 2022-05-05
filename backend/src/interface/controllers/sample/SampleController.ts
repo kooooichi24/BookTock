@@ -7,16 +7,27 @@ import { AppDataSource } from "../../../infrastructure/database/typeorm/data-sou
 import { GetAllSamplesInteractor } from "../../../application/Interactors/GetAllSamplesInteractor";
 import { CreateSampleInteractor } from "../../../application/Interactors/CreateSamplesInteractor";
 import { InputData } from "../../../application/usecases/sample/CreateSample/InputData";
+import { ICreateSampleUseCase } from "../../../application/usecases/sample/CreateSample/ICreateSampleUseCase";
+import { IGetAllSamplesUseCase } from "../../../application/usecases/sample/GetAllSamples/IGetAllSamplesUseCase";
 
 export class SampleController {
-  async save(request: ControllerRequest): Promise<ControllerResponse> {
-    const name = request.body.name;
+  private readonly createSampleUseCase: ICreateSampleUseCase;
+  private readonly getAllSamplesUseCase: IGetAllSamplesUseCase;
 
-    const usecase = new CreateSampleInteractor(
+  constructor() {
+    this.createSampleUseCase = new CreateSampleInteractor(
       new SampleRepository(AppDataSource)
     );
+    this.getAllSamplesUseCase = new GetAllSamplesInteractor(
+      new SampleRepository(AppDataSource)
+    );
+  }
+
+  async save(request: ControllerRequest): Promise<ControllerResponse> {
+    const name: string = request.body.name;
+
     const inputData = new InputData(name);
-    await usecase.execute(inputData);
+    await this.createSampleUseCase.execute(inputData);
 
     return {
       statusCode: 201,
@@ -30,10 +41,7 @@ export class SampleController {
   }
 
   async getAll(_: ControllerRequest): Promise<ControllerResponse> {
-    const usecase = new GetAllSamplesInteractor(
-      new SampleRepository(AppDataSource)
-    );
-    const result = await usecase.execute();
+    const result = await this.getAllSamplesUseCase.execute();
 
     return {
       statusCode: 200,

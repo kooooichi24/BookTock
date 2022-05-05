@@ -3,7 +3,7 @@ import { IGetAllSamplesUseCase } from "../usecases/sample/GetAllSamples/IGetAllS
 import { OutputData } from "../usecases/sample/GetAllSamples/OutputData";
 import { Sample } from "../../domain/sample/Sample";
 
-export class GetAllSamplesInteractor implements IGetAllSamplesUseCase<OutputData[]> {
+export class GetAllSamplesInteractor implements IGetAllSamplesUseCase {
   constructor(private readonly sampleRepository: ISampleRepository) {}
 
   async execute(): Promise<OutputData[]> {
