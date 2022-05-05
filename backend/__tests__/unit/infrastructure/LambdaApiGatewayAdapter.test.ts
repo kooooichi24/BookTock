@@ -1,6 +1,6 @@
 import { ControllerResponse, LambdaApiGatewayAdapter } from "../../../src/infrastructure/LambdaApiGatewayAdapter";
 
-describe("LambdaApiGatewayAdapter.ts", () => {
+describe("LambdaApiGatewayAdapter.test.ts", () => {
   describe("execute", () => {
     it("正常系", async () => {
       // Arrange

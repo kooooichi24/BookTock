@@ -7,7 +7,7 @@ import { GetAllSamplesInteractor } from "../../../../src/application/Interactors
 import { CreateSampleInteractor } from "../../../../src/application/Interactors/CreateSamplesInteractor";
 import { InputData } from "../../../../src/application/usecases/sample/CreateSample/InputData";
 
-describe("SampleController.ts", () => {
+describe("SampleController.test.ts", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });

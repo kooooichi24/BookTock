@@ -3,7 +3,7 @@ import { AppDataSource } from "../../../../../../src/infrastructure/database/typ
 import { SampleEntity } from "../../../../../../src/infrastructure/database/typeorm/entities/sample/SampleEntity";
 import { SampleRepository } from "../../../../../../src/infrastructure/database/typeorm/repository/SampleRepository";
 
-describe("SampleRepository.ts", () => {
+describe("SampleRepository.test.ts", () => {
   beforeAll(async () => {
     await AppDataSource.initialize();
   });
