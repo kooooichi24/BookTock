@@ -29,7 +29,7 @@ export class SampleController {
     };
   }
 
-  async find(_: ControllerRequest): Promise<ControllerResponse> {
+  async getAll(_: ControllerRequest): Promise<ControllerResponse> {
     const usecase = new GetAllSamplesInteractor(
       new SampleRepository(AppDataSource)
     );

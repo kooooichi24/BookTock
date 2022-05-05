@@ -7,7 +7,7 @@ export class GetAllSamplesInteractor implements IGetAllSamplesUseCase<OutputData
   constructor(private readonly sampleRepository: ISampleRepository) {}
 
   async execute(): Promise<OutputData[]> {
-    const samples = await this.sampleRepository.find();
+    const samples = await this.sampleRepository.findAll();
 
     return samples.map((sample: Sample) => new OutputData(sample));
   }

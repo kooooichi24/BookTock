@@ -18,11 +18,11 @@ export async function saveSample(
   );
 }
 
-export async function getSamples(
+export async function getAllSamples(
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> {
   return lambdaAdapter.execute(
     event,
-    sampleController.find.bind(sampleController)
+    sampleController.getAll.bind(sampleController)
   );
 }

@@ -16,7 +16,7 @@ export class SampleRepository implements ISampleRepository {
     await this.ormRepository.save(ormSample);
   }
 
-  async find(): Promise<any> {
+  async findAll(): Promise<any> {
     //
   }
 }

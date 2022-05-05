@@ -14,7 +14,7 @@ describe("GetAllSamplesInteractor.test.ts", () => {
       // Arrange
       const responseSample = new Sample("test-name");
       const spy = jest
-        .spyOn(SampleRepository.prototype, "find")
+        .spyOn(SampleRepository.prototype, "findAll")
         .mockResolvedValue([responseSample]);
       const expected = [new OutputData(responseSample)];
 

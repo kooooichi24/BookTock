@@ -71,7 +71,7 @@ describe("SampleController.test.ts", () => {
 
       // Act
       const target = new SampleController();
-      const actual = await target.find(request);
+      const actual = await target.getAll(request);
 
       // Assert
       expect(spy).toHaveBeenCalledTimes(1);
