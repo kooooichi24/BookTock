@@ -16,7 +16,8 @@ export class SampleRepository implements ISampleRepository {
     await this.ormRepository.save(ormSample);
   }
 
-  async findAll(): Promise<any> {
-    //
+  async findAll(): Promise<Sample[]> {
+    const sampleEntities = await this.ormRepository.find();
+    return SampleEntityMapper.toDomainEntities(sampleEntities);
   }
 }

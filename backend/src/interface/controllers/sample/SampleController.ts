@@ -15,7 +15,7 @@ export class SampleController {
     const usecase = new CreateSampleInteractor(
       new SampleRepository(AppDataSource)
     );
-    const inputData = new InputData(name)
+    const inputData = new InputData(name);
     await usecase.execute(inputData);
 
     return {

@@ -31,4 +31,21 @@ describe("SampleRepository.test.ts", () => {
       expect(actual[0].name).toBe("test");
     });
   });
+
+  describe("find", () => {
+    it("正常系", async () => {
+      // Arrange
+      const sampleEntity = new SampleEntity();
+      sampleEntity.name = "test";
+      await AppDataSource.getRepository(SampleEntity).save([sampleEntity]);
+
+      // Act
+      const target = new SampleRepository(AppDataSource);
+      const actual = await target.findAll();
+
+      // Assert
+      expect(actual).toHaveLength(1);
+      expect(actual[0].name).toBe("test");
+    });
+  });
 });

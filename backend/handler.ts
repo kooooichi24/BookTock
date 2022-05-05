@@ -5,13 +5,14 @@ import { SampleController } from "./src/interface/controllers/sample/SampleContr
 import { LambdaApiGatewayAdapter } from "./src/infrastructure/LambdaApiGatewayAdapter";
 import { AppDataSource } from "./src/infrastructure/database/typeorm/data-source";
 
-AppDataSource.initialize();
 const lambdaAdapter = new LambdaApiGatewayAdapter();
 
 const sampleController = new SampleController();
 export async function saveSample(
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> {
+  await AppDataSource.initialize();
+
   return lambdaAdapter.execute(
     event,
     sampleController.save.bind(sampleController)
@@ -21,6 +22,8 @@ export async function saveSample(
 export async function getAllSamples(
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> {
+  await AppDataSource.initialize();
+
   return lambdaAdapter.execute(
     event,
     sampleController.getAll.bind(sampleController)
