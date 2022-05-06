@@ -1,5 +1,6 @@
-import { Sample } from "../../../src/domain/sample/Sample";
+import { Sample } from "../sample/Sample";
 
 export interface ISampleRepository {
   save(sample: Sample): void;
+  findAll(): any;
 }

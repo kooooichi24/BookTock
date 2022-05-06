@@ -23,8 +23,14 @@ functions:
     handler: handler.saveSample
     events:
       - http:
-          path: /api/v1/sample
+          path: /api/v1/samples
           method: post
+  getAllSamples:
+    handler: handler.getAllSamples
+    events:
+      - http:
+          path: /api/v1/samples
+          method: get
 
 custom:
   defaultStage: local

@@ -3,7 +3,7 @@ import { AppDataSource } from "../../../../../../src/infrastructure/database/typ
 import { SampleEntity } from "../../../../../../src/infrastructure/database/typeorm/entities/sample/SampleEntity";
 import { SampleRepository } from "../../../../../../src/infrastructure/database/typeorm/repository/SampleRepository";
 
-describe("SampleRepository.ts", () => {
+describe("SampleRepository.test.ts", () => {
   beforeAll(async () => {
     await AppDataSource.initialize();
   });
@@ -27,6 +27,23 @@ describe("SampleRepository.ts", () => {
 
       // Assert
       const actual = await AppDataSource.getRepository(SampleEntity).find();
+      expect(actual).toHaveLength(1);
+      expect(actual[0].name).toBe("test");
+    });
+  });
+
+  describe("find", () => {
+    it("正常系", async () => {
+      // Arrange
+      const sampleEntity = new SampleEntity();
+      sampleEntity.name = "test";
+      await AppDataSource.getRepository(SampleEntity).save([sampleEntity]);
+
+      // Act
+      const target = new SampleRepository(AppDataSource);
+      const actual = await target.findAll();
+
+      // Assert
       expect(actual).toHaveLength(1);
       expect(actual[0].name).toBe("test");
     });
