@@ -1,8 +1,7 @@
 import { CreateSampleInteractor } from "../../../../src/application/Interactors/CreateSamplesInteractor";
 import { InputData } from "../../../../src/application/usecases/sample/CreateSample/InputData";
 import { Sample } from "../../../../src/domain/sample/Sample";
-import { AppDataSource } from "../../../../src/infrastructure/database/typeorm/data-source";
-import { SampleRepository } from "../../../../src/infrastructure/database/typeorm/repository/SampleRepository";
+import { SampleRepository } from "../../../../src/interface/repository/SampleRepository";
 
 describe("CreateSampleInteractor.test.ts", () => {
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe("CreateSampleInteractor.test.ts", () => {
 
       // Act
       const target = new CreateSampleInteractor(
-        new SampleRepository(AppDataSource)
+        new SampleRepository()
       );
       await target.execute(new InputData("test-name"));
 

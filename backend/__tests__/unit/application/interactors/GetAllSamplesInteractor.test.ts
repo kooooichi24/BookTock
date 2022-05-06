@@ -1,8 +1,7 @@
 import { GetAllSamplesInteractor } from "../../../../src/application/Interactors/GetAllSamplesInteractor";
 import { OutputData } from "../../../../src/application/usecases/sample/GetAllSamples/OutputData";
 import { Sample } from "../../../../src/domain/sample/Sample";
-import { AppDataSource } from "../../../../src/infrastructure/database/typeorm/data-source";
-import { SampleRepository } from "../../../../src/infrastructure/database/typeorm/repository/SampleRepository";
+import { SampleRepository } from "../../../../src/interface/repository/SampleRepository";
 
 describe("GetAllSamplesInteractor.test.ts", () => {
   beforeEach(() => {
@@ -20,7 +19,7 @@ describe("GetAllSamplesInteractor.test.ts", () => {
 
       // Act
       const target = new GetAllSamplesInteractor(
-        new SampleRepository(AppDataSource)
+        new SampleRepository()
       );
       const actual = await target.execute();
 

@@ -2,13 +2,12 @@ import {
   ControllerRequest,
   ControllerResponse,
 } from "../../../../src/infrastructure/LambdaApiGatewayAdapter";
-import { SampleRepository } from "../../../infrastructure/database/typeorm/repository/SampleRepository";
-import { AppDataSource } from "../../../infrastructure/database/typeorm/data-source";
 import { GetAllSamplesInteractor } from "../../../application/Interactors/GetAllSamplesInteractor";
 import { CreateSampleInteractor } from "../../../application/Interactors/CreateSamplesInteractor";
 import { InputData } from "../../../application/usecases/sample/CreateSample/InputData";
 import { ICreateSampleUseCase } from "../../../application/usecases/sample/CreateSample/ICreateSampleUseCase";
 import { IGetAllSamplesUseCase } from "../../../application/usecases/sample/GetAllSamples/IGetAllSamplesUseCase";
+import { SampleRepository } from "../../repository/SampleRepository";
 
 export class SampleController {
   private readonly createSampleUseCase: ICreateSampleUseCase;
@@ -16,10 +15,12 @@ export class SampleController {
 
   constructor() {
     this.createSampleUseCase = new CreateSampleInteractor(
-      new SampleRepository(AppDataSource)
+      // new SampleRepository(AppDataSource)
+      new SampleRepository()
     );
     this.getAllSamplesUseCase = new GetAllSamplesInteractor(
-      new SampleRepository(AppDataSource)
+      // new SampleRepository(AppDataSource)
+      new SampleRepository()
     );
   }
 

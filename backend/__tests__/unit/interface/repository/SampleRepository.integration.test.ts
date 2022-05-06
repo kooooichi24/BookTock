@@ -1,7 +1,7 @@
-import { Sample } from "../../../../../../src/domain/sample/Sample";
-import { AppDataSource } from "../../../../../../src/infrastructure/database/typeorm/data-source";
-import { SampleEntity } from "../../../../../../src/infrastructure/database/typeorm/entities/sample/SampleEntity";
-import { SampleRepository } from "../../../../../../src/infrastructure/database/typeorm/repository/SampleRepository";
+import { Sample } from "../../../../src/domain/sample/Sample";
+import { AppDataSource } from "../../../../src/infrastructure/database/typeorm/data-source";
+import { SampleEntity } from "../../../../src/infrastructure/database/typeorm/entities/sample/SampleEntity";
+import { SampleRepository } from "../../../../src/interface/repository/SampleRepository";
 
 describe("SampleRepository.test.ts", () => {
   beforeAll(async () => {
@@ -22,7 +22,7 @@ describe("SampleRepository.test.ts", () => {
       const sample = new Sample("test");
 
       // Act
-      const target = new SampleRepository(AppDataSource);
+      const target = new SampleRepository();
       await target.save(sample);
 
       // Assert
@@ -40,7 +40,7 @@ describe("SampleRepository.test.ts", () => {
       await AppDataSource.getRepository(SampleEntity).save([sampleEntity]);
 
       // Act
-      const target = new SampleRepository(AppDataSource);
+      const target = new SampleRepository();
       const actual = await target.findAll();
 
       // Assert
