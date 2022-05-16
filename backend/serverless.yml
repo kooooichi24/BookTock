@@ -4,6 +4,7 @@ frameworkVersion: "3"
 plugins:
   - serverless-prune-plugin
   - serverless-plugin-typescript
+  - serverless-dynamodb-local
   - serverless-offline
   - serverless-layers
 
@@ -15,8 +16,20 @@ provider:
   region: ap-northeast-1
   deploymentBucket:
     name: booktock-deployment-bucket-${self:provider.stage}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:Scan
+          Resource: arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_SAMPLE_TABLE}
   environment:
     STAGE: ${self:provider.stage}
+    DYNAMODB_SAMPLE_TABLE: ${self:service}-dynamodb-sample-table-${self:provider.stage}
 
 functions:
   saveSample:
@@ -32,6 +45,23 @@ functions:
           path: /api/v1/samples
           method: get
 
+resources:
+  Resources:
+    SampleTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_SAMPLE_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PROVISIONED
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
 custom:
   defaultStage: local
   prune:
@@ -39,3 +69,10 @@ custom:
     number: 3
   serverless-layers:
     compatibleRuntimes: ["nodejs14.x"]
+  dynamodb:
+    stages:
+      - local
+    start:
+      port: 8000
+      migrate: true
+      noStart: true # Dockerで起動したローカルのDynamoDBを利用したい
