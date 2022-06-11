@@ -9,6 +9,7 @@ module.exports = {
       tsconfig: "tsconfig.json",
     },
   },
+  preset: "jest-dynalite",
   testMatch: ["**/__tests__/**/*.test.ts"],
   collectCoverage: true,
   collectCoverageFrom: [
