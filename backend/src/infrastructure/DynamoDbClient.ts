@@ -19,16 +19,12 @@ export class DynamoDbClient implements IDynamoDbClient {
     switch (process.env.STAGE) {
       case "test":
         return new DynamoDBClient({
-          region: "localhost",
+          region: "test",
           endpoint: "http://localhost:8001",
-          credentials: {
-            accessKeyId: "DEFAULT_ACCESS_KEY",
-            secretAccessKey: "DEFAULT_SECRET",
-          },
         });
       case "local":
         return new DynamoDBClient({
-          region: "localhost",
+          region: "local",
           endpoint: "http://localhost:8000",
           credentials: {
             accessKeyId: "DEFAULT_ACCESS_KEY",
