@@ -17,15 +17,23 @@ export class DynamoDbClient implements IDynamoDbClient {
 
   private initDynamoDBClient(): DynamoDBClient {
     switch (process.env.STAGE) {
+      case "test":
+        return new DynamoDBClient({
+          region: "localhost",
+          endpoint: "http://localhost:8001",
+          credentials: {
+            accessKeyId: "DEFAULT_ACCESS_KEY",
+            secretAccessKey: "DEFAULT_SECRET",
+          },
+        });
       case "local":
         return new DynamoDBClient({
           region: "localhost",
           endpoint: "http://localhost:8000",
-        });
-      case "test":
-        return new DynamoDBClient({
-          region: "localhost",
-          endpoint: "http://localhost:8000",
+          credentials: {
+            accessKeyId: "DEFAULT_ACCESS_KEY",
+            secretAccessKey: "DEFAULT_SECRET",
+          },
         });
       default:
         // TODO: config
@@ -33,9 +41,9 @@ export class DynamoDbClient implements IDynamoDbClient {
     }
   }
 
-  async scan(): Promise<ScanCommandOutput> {
+  async scan(tableName: string): Promise<ScanCommandOutput> {
     const params: ScanCommandInput = {
-      TableName: process.env.DYNAMODB_SAMPLE_TABLE,
+      TableName: tableName,
     };
     const command = new ScanCommand(params);
     return await this.client.send(command);

@@ -22,8 +22,11 @@ export class DynamoSampleRepository implements ISampleRepository {
   }
 
   async findAll(): Promise<Sample[] | undefined> {
-    const response = await this.dynamoDbClient.scan();
+    const response = await this.dynamoDbClient.scan(
+      process.env.DYNAMODB_SAMPLE_TABLE!
+    );
 
     return response.Items?.map((item: any) => new Sample(item.id));
   }
 }
+

@@ -1,31 +1,5 @@
 version: "3.7"
 services:
-  db:
-    container_name: booktock-db
-    image: postgres:13.5
-    ports:
-      - 5432:5432
-    # volumes:
-    #   - booktock-store:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: test
-      POSTGRES_DB: test
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
-      TZ: "Asia/Tokyo"
-  test-db:
-    container_name: booktock-test-db
-    image: postgres:13.5
-    ports:
-      - 15432:5432
-    # volumes:
-    #   - booktock-store:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: test
-      POSTGRES_DB: test
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
-      TZ: "Asia/Tokyo"
   dynamodb-local:
     command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-inMemory"]
     image: "amazon/dynamodb-local:latest"
@@ -35,8 +9,3 @@ services:
     # volumes:
     #   - "./dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
-
-
-# volumes:
-#   booktock-store:
-#     driver: local

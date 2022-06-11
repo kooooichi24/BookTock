@@ -29,7 +29,7 @@ provider:
           Resource: arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_SAMPLE_TABLE}
   environment:
     STAGE: ${self:provider.stage}
-    DYNAMODB_SAMPLE_TABLE: ${self:service}-dynamodb-sample-table-${self:provider.stage}
+    DYNAMODB_SAMPLE_TABLE: ${self:service}-${self:provider.stage}-sample
 
 functions:
   saveSample:
@@ -73,6 +73,12 @@ custom:
     stages:
       - local
     start:
+      # docker: true
       port: 8000
+      inMemory: true
       migrate: true
-      noStart: true # Dockerで起動したローカルのDynamoDBを利用したい
+      seed: false
+      sharedDb: true
+      # convertEmptyValues: true
+      # Uncomment only if you already have a DynamoDB running locally
+      # noStart: true
