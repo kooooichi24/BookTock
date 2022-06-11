@@ -29,4 +29,3 @@ export class DynamoSampleRepository implements ISampleRepository {
     return response.Items?.map((item: any) => new Sample(item.id));
   }
 }
-
